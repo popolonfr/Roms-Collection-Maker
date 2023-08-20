@@ -1,4 +1,4 @@
-﻿# Welcome and thank you for your interest.
+﻿# Thank you for your interest.
 
 This tool for Windows is used to facilitate the creation of ROM compilations for the [Flash ROM SCC cartridge](https://www.msx.org/wiki/Popolon-fr_Flash-ROM_SCC_Cartridge) with a simple menu to run them. It consists of a set of BATCH scripts and external executables.
 
