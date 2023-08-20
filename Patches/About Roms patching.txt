@@ -1,0 +1,20 @@
+4-32kB Roms:
+
+ Only some Roms with anti-copy protection. See the link below to more info about Konami's games protection.
+
+https://www.msx.org/wiki/Konami_game_protections
+
+
+44-48kB Roms:
+
+ You have to apply a patch to 44-48kB roms that you want put in your compilation.
+ The patch consists of removing the swithing slot on the page 8000h-BFFFh. Only roms that use 8-16kB RAM can be be patched to add to your compilations. And to run it requires 32kB RAM. 
+
+ Remove the following bytes for example.
+
+ 26 80 CD 24 00
+
+ Sometimes there is C3 instead of CD. If you don't find out any CD 24 00 or C3 24 00, it is because the slot switching is done by direct access.
+
+
+64kB plain Roms can't work because of the SCC mapper which is not suitable.

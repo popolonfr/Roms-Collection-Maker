@@ -1,0 +1,2 @@
+This folder contains patches to convert megaroms to SCC mapper to be used
+in your compilation.

@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of R-Type to SCC mapper.
+
+Use the ROM with crc32=A884911C to apply this patch. This patch also fixes the MSX-Music auto-détection.
