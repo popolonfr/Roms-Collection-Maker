@@ -1,0 +1,16 @@
+	org	0504h
+
+	include	".\Build\EditThisList.asm"
+
+	ds	0222h,0
+
+EndList:
+	ds	02000h-EndList,255
+
+; Empty header on the segment 1 to run the Roms that contains a Basic program
+
+	ds	10h,0
+
+; Fill the rest of segment 1 with 255
+
+	ds	01FF0h,255
