@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of Metal Gear to SCC mapper.
+
+Use the ROM with crc32=BE84C94F to apply this patch. This patch also fixes the region protection.
