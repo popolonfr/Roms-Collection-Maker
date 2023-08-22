@@ -4,7 +4,7 @@ This tool for Windows is used to facilitate the creation of ROM compilations for
 
 ## Download the files
 
-Download the [Zasm](https://k1.spdns.de/Develop/Projects/zasm/Distributions/) archive for Windows, unzip it into a directory then add the path to this directory in the Windows PATH variable.
+Download the [Zasm](https://k1.spdns.de/Develop/Projects/zasm/Distributions/) archive for Windows, unzip it into a directory then add the path to this directory in the Windows [PATH](https://www.wikihow.com/Change-the-PATH-Environment-Variable-on-Windows) variable.
 
 Download the [Roms Collection Maker](https://github.com/popolonfr/Roms-Collection-Maker/archive/refs/heads/main.zip) directory from Github and copy to the chosen location on your hard drive.
 
