@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of Castlevania (M. Pazos) to SCC mapper.
+
+Use the ROM with crc32=A68605C8 to apply this patch.
