@@ -1,3 +1,0 @@
-Patch to convert the Rom mapper of Arkanoid II Revenge of DoH to SCC mapper.
-
-Use the ROM with crc32=2E131532 to apply this patch.
