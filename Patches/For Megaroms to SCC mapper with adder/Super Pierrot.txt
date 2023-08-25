@@ -1,3 +1,0 @@
-Patch to convert the Rom mapper of Super Pierrot to SCC mapper.
-
-Use the ROM with crc32=F00B4BBC or 4E63A6AD to apply this patch.
