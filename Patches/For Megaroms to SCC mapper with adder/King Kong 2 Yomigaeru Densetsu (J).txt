@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of King Kong 2 / Yomigaeru Densetsu to KonamiSCC mapper.
+
+Use the ROM with crc32=23B78A2D to apply this patch.
