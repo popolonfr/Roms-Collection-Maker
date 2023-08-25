@@ -1,3 +1,0 @@
-Patch to convert the Rom mapper of The Maze of Galious to SCC mapper.
-
-Use the ROM with crc32=FE23D253 to apply this patch.
