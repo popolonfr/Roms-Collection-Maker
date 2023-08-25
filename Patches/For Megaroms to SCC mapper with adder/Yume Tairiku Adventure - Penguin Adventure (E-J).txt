@@ -1,3 +1,0 @@
-Patch to convert the Rom Yume Tairiku Adventure - Penguin Adventure (E-J) to SCC mapper.
-
-Use the ROM with crc32=0F6418D3 to apply this patch.
