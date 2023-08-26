@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of Out Run to KonamiSCC mapper.
+
+Use the ROM with crc32=0A9F8D6C to apply this patch.
