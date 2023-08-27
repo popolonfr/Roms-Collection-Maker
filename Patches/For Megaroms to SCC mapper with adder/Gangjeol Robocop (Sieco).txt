@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of Gangjeol Robocop (Sieco) to SCC mapper.
+
+Use the ROM with crc32=248DD0DA to apply this patch. This patch also fixes the region protection.

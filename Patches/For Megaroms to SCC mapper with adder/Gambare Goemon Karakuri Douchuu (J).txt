@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of Fire Ball (optimized version) to SCC mapper.
+
+Use the ROM with crc32=40E53EA3 to apply this patch.
