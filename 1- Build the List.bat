@@ -2,6 +2,7 @@
 
 SETLOCAL
 SETLOCAL EnableDelayedExpansion
+SET location=.\Roms\"
 SET target=.\Build\EditThisList
 SET bank=2
 SET maxfile=0
