@@ -1,0 +1,3 @@
+Patch to remove the copy protection from Tatica Rom.
+
+Use the ROM with crc32=7914F7A6 to apply this patch.
