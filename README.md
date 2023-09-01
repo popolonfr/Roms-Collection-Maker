@@ -25,7 +25,7 @@ Run "2- Build the Rom.bat" to create the final ROM **".\Build\LoadThis.rom"**. t
 
 ## Note
 
-ROMs such as King Valley 2, Metal Gear 2, Pennant 2 use floppy disks for backups. If when running the ROM the message "No enough memory" occurs, it is probably that an additional disk or card reader (Sunrise, Carnivor or others) is present. Disconnect it and run the ROM again.
+ROMs such as King Valley 2, Metal Gear 2, Pennant 2 use floppy disks for backups. If when running the ROM the message "No enough memory" occurs, it is probably that an additional disk or card reader (Sunrise, Carnivor or others) is present. Disable it and run the ROM again.
 
 
 &copy; 2023 popolon-fr
