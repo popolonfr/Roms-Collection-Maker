@@ -23,5 +23,9 @@ In the second column specify the generation of MSX from which the ROM is compati
 
 Run "2- Build the Rom.bat" to create the final ROM **".\Build\LoadThis.rom"**. to load it on the SCC Cartridge Flash-ROM, use [FL.COM](https://github.com/gdx-msx/FL/tree/master/FL-V133) from version 1.33.
 
+## Note
+
+ROMs such as King Valley 2, Metal Gear 2, Pennant 2 use floppy disks for backups. If when running the ROM the message "No enough memory" occurs, it is probably that an additional disk or card reader (Sunrise, Carnivor or others) is present. Disconnect it and run the ROM again.
+
 
 &copy; 2023 popolon-fr
