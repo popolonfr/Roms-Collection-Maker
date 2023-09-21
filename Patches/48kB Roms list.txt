@@ -1,6 +1,11 @@
-List of the 48kB Roms potentialy usable in your complilation when patched:
 
- Ago Board (J) [SCC trimmed].rom  -> OK
+Several plain Roms of 48kB need to be patched to be used in your complilation.
+
+The patch consists of removing the slot selection routine of the Rom for the
+page 8000h-BFFFh.
+
+List of 48kB Roms and available patches:
+
 Alter Ego.rom
 Amadeus Classical Beats [v1.0].rom
 BeTiled! [final].rom
@@ -9,8 +14,8 @@ BeTiled! [r2].rom
 BeTiled! [r3].rom
 BitLogic [v1.00] (OXiAB Game Studio).rom
 Bomber Battle [v1.0].rom
- Breaker (Philips).rom  -> OK
- Breaker [50hz] (Philips).rom  -> OK
+ Breaker (Philips).rom  -> Patch available
+ Breaker [50hz] (Philips).rom  -> Patch available
 Bufonada [v1.0] (S).rom
 Bufonada [v1.0].rom
 Championship Lode Runner [JP-a].rom
@@ -57,7 +62,7 @@ QBIQS [v1.2].rom
 Quartet [v1.3] (Ilkke and Bitsofbas).rom
 Questprobe 2 Spiderman.rom
 Relevo's Snowboarding.rom
-Risky Rick (Arcadevision).rom
+Risky Rick (Arcadevision).rom  -> Patch available
 Rocket Roger [a] (Alligata).rom
 S.O.L.O. (S) [v1.0].rom
 S.O.L.O. [v1.0].rom
@@ -72,8 +77,8 @@ Tere-Kinesis (S).rom
 Tere-Kinesis [r1].rom
 Tere-Kinesis [r2].rom
 The Battle of Gojo Ohashi.rom
- The Cure [MSX support fix].rom  -> OK
- The Cure.rom  -> OK
+ The Cure [MSX support fix].rom  -> Patch available
+ The Cure.rom  -> Patch available
 The Menace from Triton  [v1.00].rom
 The Menace from Triton  [v1.01].rom
 The Menace from Triton  [v1.02].rom
@@ -113,12 +118,12 @@ XRacing [v1.01].rom
 XRacing [v1.02].rom
 XRacing [v1.03].rom
 XRacing [v1.04].rom
- XRacing [v1.05].rom  -> OK
+ XRacing [v1.05].rom  -> Patch available
 Zero and The Castle of Infinite Sadness [48K].rom
 Zombie Incident [v1.0] (Nenefranz).rom
 Zombie Incident [v1.1] (Nenefranz).rom
- Zombie Incident [v1.2] (Nenefranz).rom  -> OK
- Zorrico EX (I).rom  -> OK
- Zorrico EX (S).rom  -> OK
- Zorrico EX.rom  -> OK
+ Zombie Incident [v1.2] (Nenefranz).rom  -> Patch available
+ Zorrico EX (I).rom  -> Patch available
+ Zorrico EX (S).rom  -> Patch available
+ Zorrico EX.rom  -> Patch available
 Zorrico.rom
