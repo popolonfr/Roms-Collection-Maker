@@ -1,0 +1,5 @@
+Patch to convert the Rom mapper of Phenix Corrupta [v1.0] to KonamiSCC mapper.
+
+Use the ROM with crc32=85B0E6B2* to apply this patch.
+
+(*) sha1=b107b1dc6b8e53affca2ed55f80cd8b840b73f7d
