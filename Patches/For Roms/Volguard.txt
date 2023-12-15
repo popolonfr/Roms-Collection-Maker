@@ -1,0 +1,3 @@
+Volguard is a 32kB plain ROM. This patch modifies the Rom to remove the anti-copy protection.
+
+Use the ROM with crc32=874E59FB or A74CB8A9 to apply this patch.
