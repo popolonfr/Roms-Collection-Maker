@@ -43,5 +43,4 @@ FOR /l %%n in (0,1,!maxfile!) DO (
 DEL ".\Build\Work in progress.tmp"
 ENDLOCAL
 @ECHO ON
-::RETURN
 
