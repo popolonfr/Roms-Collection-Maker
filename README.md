@@ -4,11 +4,11 @@ This tool for Windows is used to facilitate the creation of ROM compilations for
 
 ## To start
 
-Download the "Roms-Collection-Maker" directory from Github and copy to the chosen location on your hard drive.
+Download the **"Roms-Collection-Maker"** directory from Github and copy to the chosen location on your hard drive.
 
 ## Copy files and directories
 
-Copy the ROMs (".ROM") to the ".\Roms-Collection-Maker\Roms\" directory. The total must not exceed 2032KB. Roms and MegaRoms that are not compatible will need to be converted with the corresponding [IPS patch](https://www.msx.org/wiki/How_to_use_IPS_files)  found (if it exists) in the **".\Patches\"** directory.
+Copy the ROMs (**".ROM"**) to the **".\Roms-Collection-Maker\Roms\"** directory. The total must not exceed 2032KB. Roms and MegaRoms that are not compatible will need to be converted with the corresponding [IPS patch](https://www.msx.org/wiki/How_to_use_IPS_files)  found (if it exists) in the **".\Patches\"** directory.
 
 ## Create and edit ROM list
 
