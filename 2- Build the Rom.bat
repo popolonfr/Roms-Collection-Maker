@@ -1,12 +1,14 @@
 @ECHO OFF
 
-IF NOT EXIST ".\Build\EditThisList.asm" (GOTO :EOF)
+IF NOT EXIST ".\Build\EditThisList.asm" CALL "1- Build the List.bat" && @ECHO OFF
+IF %ERRORLEVEL% NEQ 0 EXIT
 
-COPY /b .\Roms\*.rom .\Build\Roms.tmp
-ZASM Data2 .\Build\Data.tmp
-COPY /b Data1+.\Build\data.tmp+.\Build\Roms.tmp .\Build\LoadThis.rom
-DEL *.lst
-DEL .\Build\*.tmp
+SET PATH=%PATH%.\zasm;
+ZASM -w "RCM Menu.asm" "RCM Menu.bin"
+COPY /b "RCM Menu.bin"+".\Roms\*.rom" ".\Build\LoadThis.rom"
+
+DEL "RCM Menu.lst"
+DEL "RCM Menu.bin"
 
 PAUSE
 @ECHO ON

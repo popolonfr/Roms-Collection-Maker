@@ -2,7 +2,7 @@
 
 SETLOCAL
 SETLOCAL EnableDelayedExpansion
-SET location=.\Roms\"
+SET location=.\Roms\
 SET target=.\Build\EditThisList
 SET bank=2
 SET maxfile=0
@@ -10,7 +10,7 @@ SET count=0
 SET empty=                                      "leave as is"
 SET fbank[!count!]=   !bank!
 
-IF EXIST ".\Build\Work in progress.tmp" (GOTO :EOF) ELSE (ECHO Prevent double-click>>".\Build\Work in progress.tmp")
+IF EXIST ".\Build\Work in progress.tmp" (EXIT 1) ELSE (ECHO Prevent double-click>>".\Build\Work in progress.tmp")
 
 FOR /R %%i IN (!location!*.rom) DO (
 	SET fname[!count!]=%%~ni!empty!
@@ -26,7 +26,7 @@ IF %bank% GTR 255 (ECHO ROMs exceeds 2032KB. Can not continue^^! && echo. && PAU
 IF %maxfile% EQU 0 (ECHO File not found^^! && echo. && PAUSE && GOTO :STOP)
 IF EXIST "!target!.asm" (DEL !target!.asm)
 
-COPY Data3 !target!.asm
+COPY Data !target!.asm
 
 SET /A maxfile=!maxfile!-1
 SET maxlist=  0
@@ -43,5 +43,5 @@ FOR /l %%n in (0,1,!maxfile!) DO (
 DEL ".\Build\Work in progress.tmp"
 ENDLOCAL
 @ECHO ON
-RETURN
+::RETURN
 
