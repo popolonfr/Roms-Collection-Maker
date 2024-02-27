@@ -31,7 +31,7 @@ COPY Data !target!.asm
 SET /A maxfile=!maxfile!-1
 SET maxlist=  0
 
-FOR /l %%n in (0,1,!maxfile!) DO (
+FOR /l %%n IN (0,1,!maxfile!) DO (
 	IF %maxfile% EQU %%n (SET maxlist=128)
 	ECHO 	db	!fbank[%%n]:~-3!, !maxlist!, "  !fname[%%n]:~0,38!">> !target!.asm
 )
