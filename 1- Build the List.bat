@@ -22,8 +22,8 @@ FOR /R %%i IN (!location!*.rom) DO (
 	SET fbank[!count!]=    !bank!
 )
 
-IF %bank% GTR 255 (ECHO ROMs exceeds 2032KB. Can not continue^^! && echo. && PAUSE && GOTO :STOP)
-IF %maxfile% EQU 0 (ECHO File not found^^! && echo. && PAUSE && GOTO :STOP)
+IF %bank% GTR 255 (ECHO ROMs exceeds 2032KB. Can not continue^^! && ECHO. && PAUSE && GOTO :STOP)
+IF %maxfile% EQU 0 (ECHO File not found^^! && ECHO. && PAUSE && GOTO :STOP)
 IF EXIST "!target!.asm" (DEL !target!.asm)
 
 COPY Data !target!.asm
