@@ -1,0 +1,3 @@
+Gelatino is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with crc32=10091CD1, 60FE517B, 5297B0AC or 97822084 to apply this patch.
