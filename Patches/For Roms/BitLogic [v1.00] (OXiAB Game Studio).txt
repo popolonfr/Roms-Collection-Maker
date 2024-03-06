@@ -1,0 +1,3 @@
+BitLogic [v1.00] (OXiAB Game Studio) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with crc32=fbcd1942 to apply this patch.

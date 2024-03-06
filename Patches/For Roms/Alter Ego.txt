@@ -1,0 +1,3 @@
+Alter Ego is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with crc32=41B51564 or DD934878 to apply this patch.

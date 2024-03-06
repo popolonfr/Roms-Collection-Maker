@@ -1,0 +1,3 @@
+Tower of Damnation (v1.3, 50/60Hz) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with crc32=B195B390 or 4FADD800 to apply this patch.
