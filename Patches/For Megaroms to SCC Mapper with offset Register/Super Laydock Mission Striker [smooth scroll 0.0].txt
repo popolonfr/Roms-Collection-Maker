@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of Super Laydock Mission Striker (smooth scroll v0.0) to KonamiSCC mapper.
+
+Use the ROM with crc32=B03364A2 to apply this patch.

@@ -1,0 +1,3 @@
+Patch to convert the Rom mapper of Gradius / Nemesis to KonamiSCC mapper.
+
+Use the ROM with crc32=4D44255F to apply this patch.
