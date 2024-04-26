@@ -1,3 +1,0 @@
-Patch to remove the copy protection from Q*Bert.
-
-Use the ROM with crc32=0E988F0E to apply this patch.
