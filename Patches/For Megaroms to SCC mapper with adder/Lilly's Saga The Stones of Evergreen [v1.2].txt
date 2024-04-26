@@ -1,5 +1,0 @@
-Patch to convert the Rom mapper of Lilly's Saga - The Stones of Evergreen (v1.2 no save) to KonamiSCC mapper.
-
-Use the ROM with crc32=76E6B758* to apply this patch.
-
-sha1=d18e26f75f6d978fefe56efea46f59b9ad1b71a5

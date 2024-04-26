@@ -1,3 +1,0 @@
-Patch to convert the Rom mapper of Labyrinth Maou no Meikyuu (J) to SCC mapper.
-
-Use the ROM with crc32=9926F43C to apply this patch.

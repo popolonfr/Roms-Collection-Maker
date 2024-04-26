@@ -1,3 +1,0 @@
-Patch to convert the Rom mapper of Zanac Ex (fixed glitch version included) to KonamiSCC mapper.
-
-Use the ROM with crc32=D153B2F2 or 331413CF to apply this patch.

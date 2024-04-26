@@ -1,3 +1,0 @@
-Patch to convert the Rom mapper of Family Boxing MSX Title Match (J) to SCC mapper.
-
-Use the ROM with crc32=8699F43D to apply this patch.
