@@ -1,3 +1,6 @@
 Patch to convert the Rom mapper of Hi no Tori (Firebird) Hououhen (J) to SCC mapper.
 
-Use the ROM with crc32=D95116B0 to apply this patch.
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=D95116B0
+sha1=612c18616bc800d9eb69b9da3cd29eca31f50c1c

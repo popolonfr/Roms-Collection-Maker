@@ -1,3 +1,6 @@
 Patch to convert the Rom mapper of Majou Densetsu 3 Shalom - Knightmare 3 Shalom (J) to SCC mapper.
 
-Use the ROM with crc32=CF60FA7D to apply this patch.
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=CF60FA7D
+sha1=25f5adeca8a2ddb754d25eb18cff0d84e5b003bc

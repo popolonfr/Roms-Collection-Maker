@@ -1,3 +1,6 @@
 Patch to convert the Rom mapper of Super Runner to KonamiSCC mapper.
 
-Use the ROM with crc32=5A5BE701 to apply this patch.
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=5A5BE701
+sha1=3202af113265e67e130a0b948dc167a9f9e9cc79

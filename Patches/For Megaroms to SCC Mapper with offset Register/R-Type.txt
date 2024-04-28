@@ -1,3 +1,8 @@
 Patch to convert the Rom mapper of R-Type to KonamiSCC mapper.
 
-Use the ROM with crc32=A884911C to apply this patch. This patch also fixes the MSX-Music auto-détection.
+This patch also fixes the MSX-Music auto-détection.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=A884911C
+sha1=37bd4680a36c3a1a078e2bc47b631d858d9296b8
