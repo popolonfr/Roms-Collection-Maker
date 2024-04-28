@@ -1,3 +1,6 @@
 This version of Uridium is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
 
-Use the ROM with crc32=7a3f22ba to apply this patch.
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=7a3f22ba
+SHA1=13bd33550d2d32ec36d387b68e256db87f279025
