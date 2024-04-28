@@ -1,3 +1,6 @@
 The Cure (MSX support fix version) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
 
-Use the ROM with crc32=D5A83BA4 to apply this patch.
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=D5A83BA4
+SHA1=d9fb474c028febd25f8635e4f1413731f12907cb

@@ -1,3 +1,6 @@
 Patch to remove the copy protection from Q*Bert Rom.
 
-Use the ROM with crc32=0E988F0E to apply this patch.
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=0E988F0E
+SHA1=531a7f736d86095d791d6d0f267be66eef07949c
