@@ -1,3 +1,6 @@
 The Menace from Triton (v1.20) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
 
-Use the ROM with crc32=f7a83771 to apply this patch.
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=f7a83771
+SHA1=d301a822e698e03fa74cb7f8e5908aafea1a3491
