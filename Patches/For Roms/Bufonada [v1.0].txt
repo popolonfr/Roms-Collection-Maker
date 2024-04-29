@@ -1,0 +1,8 @@
+Bufonada (v1.0) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=AB9D3AC5
+crc32=E75C8E50
+SHA1=dc152b96fddbc85cf32f4003f8b0988adf4f8ca7
+SHA1=ea463839ca7fc764fab8656f0d6b22db131a3d02

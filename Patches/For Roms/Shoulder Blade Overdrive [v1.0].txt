@@ -1,0 +1,6 @@
+Shoulder Blade Overdrive (v1.0) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=88CE879B
+SHA1=349fc714c0c19b7cd749f75e618fffb6c2855fcb

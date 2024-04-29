@@ -1,0 +1,6 @@
+Universe Unknown (final) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=915F1BFE
+SHA1=8ab1b72ce852a778a645f566a70fa18ee32fd021
