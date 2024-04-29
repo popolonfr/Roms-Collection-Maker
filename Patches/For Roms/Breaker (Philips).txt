@@ -1,6 +1,0 @@
-Breaker (Philips) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=80B35304
-SHA1=b121da5db0da5ca3ac76ea38f5c93c9deca158e1
