@@ -59,7 +59,7 @@ Offset		equ	1				; 0 Without offset register
 							; 1 Offset register (Flash Rom SCC Cartridge popolon-fr)
 							; 2 Offset register (MFR SCC+ SD)
 	if	Offset==1
-OffsetReg	equ	03FFFh
+OffsetReg	equ	03FF0h
 	elif	Offset==2
 OffsetReg	equ	07FFDh
 	endif
