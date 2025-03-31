@@ -376,7 +376,7 @@ SkipSegMum:
 
 	pop	hl
 	ld	de,WidthName
-	add	hl,de					; Go to le next name
+	add	hl,de					; Go to the next name
 
 	pop	bc
 	djnz	PrintListLP
