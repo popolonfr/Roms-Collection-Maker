@@ -1,0 +1,12 @@
+Gelatino is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=10091CD1
+crc32=60FE517B
+crc32=5297B0AC
+crc32=97822084
+SHA1=cd992efdc4e676a94fe60ff86a4e3e5bc0eaa3ab
+SHA1=21ef8ea0989687af23a2b7f1cfe97c9b7b872fef
+SHA1=b9ed5cd85340911aeb1e41b0f3f0df04dba06794
+SHA1=bd4c90b56a139d5dd17981596aa18461bad37186

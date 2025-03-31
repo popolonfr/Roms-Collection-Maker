@@ -1,0 +1,6 @@
+Gommy Medieval Defender deluxe is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=00CC2162
+SHA1=f9eb4335d482508fa822d103b95017aaf59ca724

@@ -1,0 +1,12 @@
+Virgil's Purgatory EX is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=CD1FCFE3
+crc32=B33602F3
+crc32=E0468C9E
+crc32=6FA80528
+SHA1=fb46a5e4195f7b228ca3d86b802ad450a8631e42
+SHA1=388e8e92e5a7718678ea07f506d58799599dfe7c
+SHA1=564a28545daeaf2632dc5cf041153f56c9ee9877
+SHA1=9f9fa0e28f10797b80b5bb5ca83a632f7be6ffb8

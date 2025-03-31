@@ -1,0 +1,6 @@
+Quartet (v1.3) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=266B023D
+SHA1=8477a3c3547944e1c86a8ec1d67b7cb83c92acd5

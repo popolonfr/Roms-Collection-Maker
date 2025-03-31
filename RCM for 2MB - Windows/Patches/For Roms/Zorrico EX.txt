@@ -1,0 +1,10 @@
+Zorrico EX is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=6C81D265
+crc32=591E9AE4
+crc32=9671F6D8
+SHA1=d9483cad63e17b87246ceafd415e616559c1c7de
+SHA1=97cf2922014af07a6d9be0305a5994a4e19ac459
+SHA1=97b0c65a7bc3ca3ff66b7e21cac99cc7bd1ecd9a
