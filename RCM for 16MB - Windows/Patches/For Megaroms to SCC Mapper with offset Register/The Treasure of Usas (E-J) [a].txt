@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of The Treasure of Usas to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=1F1F1F26
+sha1=632cb0834441626d20cc113cfad2e3a7ec0e0dc7
