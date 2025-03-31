@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Bubble Bobble to SCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=6524D9FC
+sha1=e73946f1f26589d77926276ca4f9dbee60c53fde

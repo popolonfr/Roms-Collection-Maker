@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Castlevania (M. Pazos) to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=A68605C8
+sha1=d8d8fc9cc46eda73724a2f869808773ba241c6b3

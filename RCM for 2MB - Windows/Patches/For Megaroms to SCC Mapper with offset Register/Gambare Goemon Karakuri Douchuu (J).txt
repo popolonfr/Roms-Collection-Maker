@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Gambare Goemon Karakuri Douchuu (J) to SCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=40E53EA3
+sha1=fd71df03b0e9f3caf701ecfc6d5232060cab3b13

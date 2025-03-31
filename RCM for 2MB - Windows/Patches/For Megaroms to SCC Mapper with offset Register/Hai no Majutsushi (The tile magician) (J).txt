@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Hai no Majutsushi to KonamiSCC mapper and it activates the DAC of the Popolon-fr 16MB SCC Cartridge Flash-ROM.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=D5C1E12E
+sha1=d08d4e2a8d92c01551ff012a71a1f3e57fe2d09c

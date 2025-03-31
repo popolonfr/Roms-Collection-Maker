@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Super Laydock Mission Striker to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=5DC45624
+sha1=2dfbca8f5cc3a9e9d151382ebe0da410f5393eaf

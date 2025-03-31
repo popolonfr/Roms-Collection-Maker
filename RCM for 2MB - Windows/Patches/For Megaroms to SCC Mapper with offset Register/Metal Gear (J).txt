@@ -1,0 +1,8 @@
+Patch to convert the Rom mapper of Metal Gear (J) to KonamiSCC mapper.
+
+This patch also fixes the region protection.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=FAFE1303
+sha1=a52021f1b257c7c35d626d5d642134091c45e4f4

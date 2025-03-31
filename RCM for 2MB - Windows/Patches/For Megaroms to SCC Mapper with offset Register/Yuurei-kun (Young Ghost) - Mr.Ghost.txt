@@ -1,0 +1,8 @@
+Patch to convert the Rom mapper of Yuurei-kun (Young Ghost) / Mr.Ghost to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=712AE3C6
+crc32=689CA672
+sha1=efed48854beb2803d9f2b5644edff2aacf7c6af9
+sha1=bfe62e8eab59a92315604dd322f186c96ba358f2

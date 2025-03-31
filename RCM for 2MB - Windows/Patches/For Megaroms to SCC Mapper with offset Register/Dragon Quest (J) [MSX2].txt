@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Dragon Quest for MSX2 to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=7729E7A9
+sha1=5577e483caca553cfbfc0cba26f3ab2444569f81

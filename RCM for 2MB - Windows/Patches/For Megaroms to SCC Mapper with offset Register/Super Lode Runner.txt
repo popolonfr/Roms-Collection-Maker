@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Super Lode Runner to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=80ECAC11
+sha1=4164dcdfe0613d0f4c53b6f3581548bbbad5eb43
