@@ -1,0 +1,991 @@
+; --------------------------------------
+; zasm: assemble "RCM Menu.asm"
+; date: 2025-03-31 11:47:40
+; --------------------------------------
+
+
+
+; Multi-ROM Menu v1.1 for SCC mapper by Popolon-fr
+;
+; Thanks to GDX for their contribution
+
+; Main-ROM entries
+
+DCOMPR		equ	00020h
+BASRVN		equ	0002Bh
+DISSCR		equ	00041h
+ENASCR		equ	00044h
+ENASLT		equ	00024h
+FILVRM		equ	00056h
+INITXT		equ	0006Ch				; Initialize the screen 0
+INIT32		equ	0006Fh				; Initialize the screen 1
+GTSTCK		equ	000D5h
+GTTRIG		equ	000D8h
+LDIRVM		equ	0005Ch
+MSXVER		equ	0002Dh
+RSLREG		equ	00138h
+VDP_DR		equ	00006h
+VDP_DW		equ	00007h
+WRSLT		equ	00014h
+WRTVDP		equ	00047h 
+WRTVRM		equ	0004Dh
+
+; System variables
+
+BAKCLR		equ	0F3EAh				; Background color (screen 1)
+BDRCLR		equ	0F3EBh				; Border color
+FORCLR		equ	0F3E9h				; Text color
+LINL40		equ	0F3AEh				; Width
+TXTATR		equ	0F3B9h				; Character attributs table 
+NEWKEY		equ	0FBE5h
+EXPTBL		equ	0FCC1h
+RG9SAV		equ	0FFE8h				; Current value of the register 9
+VOICAQ		equ	0F975h				; Data voice 1 (used as buffer here)
+
+; Hooks
+
+H_STKE	equ	0FEDAh
+
+; Program variables
+
+
+RamBottom	equ	0E000h
+PrgInRam	equ	RamBottom+10h			; Address of the program in RAM
+CurrTopName	equ	PrgInRam+(MainPrgEnd-RomSel)	; Address of the first name of the list to display
+VramPos		equ	CurrTopName+2			; Vram address to display the list
+SettingBits	equ	VramPos+2			; Setting bits after the selected ROM
+SegMum		equ	SettingBits+1			; First segment number of the selected ROM
+NextSegMum	equ	SegMum+2			; Segment number after the selected ROM
+RomSlot		equ	NextSegMum+2			; Slot number
+CurrAdr		equ	RomSlot+1			; Data address of the selected ROM
+RomSize		equ	CurrAdr+2			; Rom size in number of the segment
+WidthName	equ	40
+LineData	equ	43
+
+Offset		equ	1				; 0 Without offset register
+							; 1 Offset register (Flash Rom SCC Cartridge popolon-fr)
+							; 2 Offset register (MFR SCC+ SD)
+	if	Offset==1
+OffsetReg	equ	03800h
+	elif	Offset==2
+OffsetReg	equ	07FFDh
+	endif
+
+	org	04000h
+
+; Rom header
+
+	db	41h,42h
+	dw	Start
+	ds	12,0
+
+; Menu program
+
+Start:
+	push	af
+	push	bc
+	push	de
+	push	hl
+
+	ld	hl,BankSel
+	ld	de,VOICAQ
+	ld	bc,RamPrgEnd-BankSel
+	ldir						; Copy the segments selection routine
+
+	ld	hl,RomSel
+	ld	de,PrgInRam
+	ld	bc,MainPrgEnd-RomSel
+	ldir						; Copy the Rom pages selection routine
+
+	call	RSLREG
+	rrca
+	rrca
+	and	3
+	ld	c,a
+	ld	b,0
+	ld	hl,EXPTBL
+	add	hl,bc
+	ld	a,(hl)
+	and	80h
+	or	c
+	ld	c,a
+	inc	hl
+	inc	hl
+	inc	hl
+	inc	hl
+	ld	a,(hl)
+	and	0Ch
+	or	c
+	ld	(RomSlot),a				; Get the ROM slot number
+
+	ld	hl,09000h
+	ld	e,1
+	call	WRSLT					; Select the segment 1 on the page 6000h-7FFFh
+
+	ld	a,1
+	ld	(07000h),a
+
+	ld	a,1
+	ld	(BAKCLR),a				; (Useless in screen 0)
+	ld	(BDRCLR),a
+	ld	a,15
+	ld	(FORCLR),a				; Text color
+	ld	a,WidthName
+	ld	(LINL40),a				; Width 40
+	call	INITXT					; Screen 0
+
+	ld	hl,(RomList+(LineData*6))		; If there is only one Rom in the list ...
+	ld	(SegMum),hl
+
+	ld	a,(RomList+(LineData*6)+2)
+	ld	(SettingBits),a
+
+	ld	hl,(RomList+(LineData*7))
+	ld	(NextSegMum),hl
+
+	ld	hl,RomList+(LineData*7)+2
+	ld	a,(hl)
+	cp	255
+	jp	z,RomExec				; ... Then run the ROM without the menu
+
+	ld	hl,RomList+3				; Point to the first MSX generation value
+	ld	de,LineData
+NextMSXgen:
+	ld	a,(hl)
+	and	3					; Reset unused bits of the MSX generation value
+	add	hl,de
+	ld	b,a
+	ld	a,(MSXVER)
+	and	3					; Reset unused bits of MSXVER
+	cp	b
+	jr	c,NextMSXgen				; Jump if MSXVER < A
+
+	add	hl,de
+	cp	255
+	jp	z,RomExec				; Jump if MSX generation value of the next line is 255
+;--
+	ld	hl,(TXTATR)
+	ld	de,WidthName*0
+	add	hl,de
+	ex	hl,de					; Set the position at the line 0
+	ld	hl,Title
+	ld	bc,WidthName
+	call	LDIRVM					; Print the title
+
+	ld	hl,EmptyLine
+	ld	a,(MSXVER)
+	or	a
+	jr	z,CurrFreq				; Jump if MSX1
+
+	ld	a,(RG9SAV)
+	and	2
+	ld	hl,F1_50Hz
+	jr	z,CurrFreq				; Jump if 60hz mode
+	ld	hl,F1_60Hz
+CurrFreq:
+	call	PrintFreqOpt				; Print the 50/60hz option
+
+	ld	hl,RomList
+	ld	(CurrTopName),hl
+
+MainLoop:
+	ld	hl,(TXTATR)
+	ld	de,WidthName*4				; Set the list position at the line 4
+	add	hl,de
+	ld	(VramPos),hl
+
+	halt
+	call	PrintList				; Print the Roms list
+
+; Keyboard tests
+
+	ld	a,(NEWKEY+8)				; Row 8
+	and	40h
+	call	z,MoveDown				; Call if Down key is pressed
+
+	ld	a,(NEWKEY+8)				; Row 8
+	and	20h
+	call	z,MoveUp				; Call if Up key is pressed
+
+	ld	a,(NEWKEY+8)				; Row 8
+	and	1
+	jr	z,RomExec				; Jump if Space key is pressed
+
+	ld	a,(NEWKEY+6)				; Row 6
+	and	20h
+	call	z,FreqToggle				; Call if F1 key is pressed
+
+; Joystick tests
+
+	ld	a,1
+	call	GTSTCK					; Test the joystick 1
+	cp	1
+	call	z,MoveUp				; Jump if Up is pressed
+
+	ld	a,1
+	call	GTSTCK					; Test the joystick 1
+	cp	5
+	call	z,MoveDown				; Jump if Down is pressed
+
+	ld	a,1
+	call	GTTRIG					; Test the button 1 of the joystick 1
+	or	a
+	jr	nz,RomExec				; Jump if button 1 of the joystick 1 is pressed
+
+	ld	a,3
+	call	GTTRIG					; Test the button 2 of the joystick 1
+	or	a
+	call	nz,FreqTogglJ				; Jump if button 2 of the joystick 1 is pressed
+
+	jr	MainLoop
+
+FreqTogglJ:
+	ld	a,3
+	call	GTTRIG					; Test the button 1 of the joystick 1
+	or	a
+	jr	nz,FreqTogglJ				; Jump if button 2 of the joystick 1 is pressed
+
+	ld	a,1
+	call	GTSTCK					; Test the joystick 1
+	cp	3
+	ret	nz					; Back if Left of the joystick 1 is not pressed
+
+FreqToggle:
+	ld	a,(MSXVER)
+	or	a
+	ret	z					; Back if MSX1
+
+	ld	a,(NEWKEY+6)
+	and	20h
+	jr	z,FreqToggle				; Jump if F1 key is pressed
+
+	ld	c,9
+	ld	a,(RG9SAV)
+	xor	2
+	ld	b,a
+	call	WRTVDP					; Toggle 50/60 Hz mode
+
+	ld	a,(RG9SAV)
+	and	2
+	ld	hl,F1_50Hz
+	jr	z,PrintFreqOpt				; Jump if 60hz mode
+	ld	hl,F1_60Hz
+
+PrintFreqOpt:
+	push	hl
+	ld	hl,(TXTATR)
+	ld	de,WidthName*2
+	add	hl,de
+	ex	hl,de					; Set the position at the line 2
+	pop	hl
+	ld	bc,WidthName
+	jp	LDIRVM					; Print the 50/60hz option
+
+RomExec:
+	ld	de,(SegMum)
+	ld	(RamBottom+14),de			; Temporary SegMum
+	ld	(VOICAQ+(RamPrgEnd-BankSel)),de
+	ld	hl,(NextSegMum)
+	or	a
+	sbc	hl,de					; Calculate the Rom size
+	ld	(RomSize),hl
+
+	pop	hl
+	pop	de
+	pop	bc
+	pop	af
+	jp	PrgInRam				; Go to the Rom execution program in RAM (RomSel)
+
+MoveDown:						; The number of "inc hl" instructions must correspond
+	ld	hl,(CurrAdr)
+	inc	hl
+	inc	hl
+	ld	a,(hl)					; Get the MSX generation data
+	and	3
+	ld	b,a					; Store MSX generation value in B
+	bit	7,(hl)
+	jr	z,NextName				; Jump if last Rom bit is reset
+	ld	a,(MSXVER)
+	and	3					; Reset unused bits of MSX generation
+	cp	b
+	ret	c					; Last line?
+
+CONT:
+	ld	de,LineData
+	add	hl,de
+	ld	a,(hl)					; Get the nMSX generation data
+	cp	255
+	ret	z
+
+NextName:
+	ld	hl,(CurrTopName)
+	ld	de,LineData
+	add	hl,de
+	ld	(CurrTopName),hl			; Set the new current name position
+	ret
+
+MoveUp:
+	ld	hl,(CurrTopName)
+	ld	de,LineData*5
+	add	hl,de
+	ld	a,(hl)
+	inc	hl
+	or	(hl)
+	ret	z					; Back if next ROM segment is 0 (No ROM) 
+
+PrevName:
+	ld	hl,(CurrTopName)
+	ld	de,LineData
+	or	a
+	sbc	hl,de
+	ld	(CurrTopName),hl			; Set the new current name position
+	ret
+
+PrintList:
+	ld	b,20					; 20 lines to display
+	ld	hl,(CurrTopName)			; HL = Current Top name address
+
+PrintListLP:
+	push	bc
+	inc	hl					; Points the MSX generation
+	inc	hl
+PrnCond:
+	ld	a,(hl)
+	and	3					; to keep the bits 0-1
+	ld	c,a
+	ld	a,(MSXVER)
+	cp	c
+	jr	nc,PrintOK				; Call if A >= c
+
+	ld	de,LineData
+	add	hl,de					; Go to the next name
+
+	jr	PrnCond
+PrintOK:
+	ld	e,(hl)					; Get the settings bits (Mirror and Boot)
+	dec	hl					; Points the Segment number
+	dec	hl
+	pop	bc
+	push	bc
+	ld	a,20-6
+	cp	b
+	jr	nz,SkipSegMum
+	ld	a,e
+	ld	(SettingBits),a				; Store the settings bits at the cursor
+
+	ld	(CurrAdr),hl
+
+	ld	c,(hl)					; Get the Segment number at the cursor
+	inc	hl
+	ld	b,(hl)
+	ld	(SegMum),bc				; Store the Segment number at the cursor
+
+	ld	de,LineData-1
+	add	hl,de
+
+	ld	c,(hl)					; Get the next Segment number
+	inc	hl
+	ld	b,(hl)
+	ld	(NextSegMum),bc				; Store the next Segment number
+
+	ld	hl,(CurrAdr)
+SkipSegMum:
+	ld	de,LineData-WidthName
+	add	hl,de					; Points the current name
+	ld	de,(VramPos)
+	ld	bc,WidthName
+	push	hl
+	call	LDIRVM					; Print a name
+
+	ld	hl,(VramPos)
+	ld	de,WidthName
+	add	hl,de
+	ld	(VramPos),hl				; Go to the line
+
+	pop	hl
+	ld	de,WidthName
+	add	hl,de					; Go to the next name
+
+	pop	bc
+	djnz	PrintListLP
+
+	ld	hl,(TXTATR)
+	ld	de,WidthName*10
+	add	hl,de
+	ld	a,'>'
+	call	WRTVRM					; Print the selection cursor to line 10
+
+	halt
+	halt
+	halt
+	halt
+	ret
+
+PrintName:
+	pop	hl
+	inc	hl
+	ld	bc,WidthName*4
+	call	LDIRVM					; Print the current name
+	pop	hl
+	ret
+
+RomSel:
+	push	bc
+	push	de
+
+	ld	a,(BASRVN+1)
+	bit	4,a
+	jr	nz,NoScreen1				; Jump if initial screen mode is screen 0
+	ld	a,1
+	push	hl
+	call	INIT32
+	pop	hl
+NoScreen1:
+	ld	a,(RamBottom+14)
+
+	if	Offset==2
+	ld	e,0
+	ld	a,(RomSlot)
+	ld	hl,OffsetReg+1
+	call	WRSLT					; Sets up the offset segment
+	endif
+
+	if	Offset==1
+	ld	e,a
+	ld	a,(RomSlot)
+	ld	hl,OffsetReg
+	call	WRSLT
+	ld	a,(RamBottom+15)
+	ld	e,a
+	ld	a,(RomSlot)
+	ld	hl,OffsetReg+1
+	call	WRSLT					; Sets up the offset segment
+	endif
+
+
+	ld	hl,(RomSize)
+
+	ld	de,5
+	call	DCOMPR
+	jp	z,PrgInRam+(Rom2pages1_2_3-RomSel)	; Jump if Romsize == 40K (jr Rom2pages1_2_3)
+
+	ld	e,6
+	call	DCOMPR
+	jp	z,PrgInRam+(Rom2pages1_2_3-RomSel)	; Jump if Romsize == 48K (jr Rom2pages1_2_3)
+
+	ld	e,4
+	call	DCOMPR
+	jp	nc,PrgInRam+(Rom2pages1_2-RomSel)	; Jump if Romsize >= 32K (jr Rom2pages1_2)
+
+PlainRom8to16K:
+
+; Initialise the Rom mapper segments and pages for 4/8/16kB Roms
+
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	else
+	xor	a
+	endif
+
+	ld	(05000h),a				; Select the segment 0 on the page 4000h-5FFFh
+
+	ld	a,(04003h)
+	bit	7,a
+	jp	nz,PrgInRam+(Rom2page2-RomSel)		; Jump if INIT address > 7FFFh
+	ld	a,(04009h)
+	bit	7,a
+	jp	nz,PrgInRam+(Rom2page2-RomSel)		; Jump if TEXT address > 7FFFh
+	ld	a,(04003h)
+	bit	6,a
+	jp	z,PrgInRam+(Rom2page0-RomSel)		; Jump if INIT address < 4000h
+
+Rom2page1:
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	else
+	xor	a
+	endif
+
+	ld	(05000h),a				; Select the segment 0 on the page 4000h-5FFFh
+	inc	a
+	ld	(07000h),a				; Select the segment 1 on the page 6000h-7FFFh
+	ld	e,1
+	ld	hl,09000h
+	call	WRSLT					; Select the empty segment on the page 8000h-9FFFh
+	ld	e,1
+	ld	hl,0B000h
+	call	WRSLT					; Select the empty segment on the page A000h-BFFFh
+	pop	de
+	pop	bc
+	ld	hl,(04002h)
+	jp	PrgInRam+(ExeByJump-RomSel)		; Execute the selected Rom with INIT address between 4000h and 7FFFh
+
+; 32kB Rom execution on page 4000h
+
+Rom2pages1_2: ;*
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	else
+	xor	a
+	endif
+
+	ld	(05000h),a				; Select the segment 0 on the page 4000h-5FFFh
+	inc	a
+	ld	(07000h),a				; Select the segment 1 on the page 6000h-7FFFh
+	ld	e,a
+	ld	a,(RomSlot)
+	inc	e
+	ld	hl,09000h
+	call	WRSLT					; Select the segment 2 on the page 8000h-9FFFh
+	ld	a,(RomSlot)
+	inc	e
+	ld	hl,0B000h
+	call	WRSLT					; Select the segment 3 on the page A000h-BFFFh
+	pop	af
+
+	ld	hl,(4002h)
+	push	hl
+	bit	7,h
+	jr	z,NoUPTO8000
+
+	ld	a,(EXPTBL)
+	ld	h,040h
+	call	ENASLT					; Select the Main-ROM on the page 4000h-7fffh
+	ld	a,(RomSlot)
+	ld	h,080h
+	call	ENASLT					; Select the ROM on the page 8000h-Bfffh
+NoUPTO8000:
+	pop	hl
+	pop	de
+	pop	bc
+	jp	PrgInRam+(ExeByJump-RomSel)		; Execute the selected Rom with INIT address between 4000h and 7FFFh
+
+; 32Kb Rom execution on page 8000h
+
+Rom2page2:
+	ld	a,1
+	ld	(05000h),a				; Select the empty segment on the page 4000h-5FFFh
+	ld	(07000h),a				; Select the empty segment on the page 6000h-7FFFh
+
+	push	hl
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	ld	e,a
+	else
+	ld	e,0
+	endif
+
+	ld	a,(RomSlot)
+	ld	hl,09000h
+	call	WRSLT					; Select the segment 0 on the page 8000h-9FFFh
+	ld	a,(RomSlot)
+	inc	e
+	ld	hl,0B000h
+	call	WRSLT					; Select the segment 1 on the page A000h-BFFFh
+	pop	hl
+	pop	de
+	pop	bc
+	jp	PrgInRam+(ExeByRet-RomSel)		; Back to Rom scaning
+
+; 16Kb Rom execution on page 0000h
+
+Rom2page0:
+	ld	a,1
+	ld	(05000h),a				; Select the empty segment on the page 4000h-5FFFh
+	ld	(07000h),a				; Select the empty segment on the page 6000h-7FFFh
+
+	push	hl
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	ld	e,a
+	else
+	ld	e,0
+	endif
+
+	ld	a,(RomSlot)
+	ld	hl,09000h
+	call	WRSLT					; Select the segment 0 on the page 8000h-9FFFh
+	ld	a,(RomSlot)
+	inc	e
+	ld	hl,0B000h
+	call	WRSLT					; Select the segment 1 on the page A000h-BFFFh
+	pop	hl
+	pop	de
+	pop	bc
+	jp	PrgInRam+(ExeByRet-RomSel)		; Back to Rom scaning
+
+; 48Kb Rom execution
+
+Rom2pages1_2_3:
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	else
+	xor	a
+	endif
+
+	ld	(05000h),a				; Select the segment 2 on the page 4000h-5FFFh
+	ld	a,(04000h)
+	cp	41h
+	jp	nz,PrgInRam+(PutOnpages1_2_3-RomSel)	; Jump to PutOnpages1_2_3 if no header on the first segment
+	ld	a,(04001h)
+	cp	42h
+	jp	z,PrgInRam+(Rom2pages1_2-RomSel)	; Jump to Rom2pages1_2 if Header on the first segment
+
+PutOnpages1_2_3:
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	add	a,4
+	else
+	ld	a,4
+	endif
+
+	ld	(05000h),a				; Select the segment 4 on the page 4000h-5FFFh
+	inc	a
+	ld	(07000h),a				; Select the segment 5 on the page 6000h-7FFFh
+
+	ld	hl,4000h
+	ld	de,8000h
+	ld	bc,4000h
+	ldir
+
+	sub	2
+	ld	(07000h),a				; Select the segment 3 on the page 6000h-7FFFh
+	dec	a
+	ld	(05000h),a				; Select the segment 2 on the page 4000h-5FFFh
+
+	if	Offset==0
+	ld	a,(RamBottom+14)
+	ld	e,a
+	else
+	ld	e,0
+	endif
+
+	ld	a,(RomSlot)
+	ld	hl,09000h
+	call	WRSLT					; Select the segment 0 on the page 8000h-9FFFh
+	ld	a,(RomSlot)
+	inc	e
+	ld	hl,0B000h
+	call	WRSLT					; Select the segment 1 on the page A000h-BFFFh
+
+	pop	de
+	pop	bc
+	ld	hl,(4002h)
+;	jp	(hl)					; Execute the selected Rom with INIT address between 4000h and 7FFFh
+
+ExeByJump:
+	ld	a,(SettingBits)
+	and	020h					; Boot type
+	jp	nz,0					; Bios reboot
+	jp	(hl)					; Execute the selected Rom
+
+ExeByRet:
+	ld	a,(SettingBits)
+	and	020h					; Boot type
+	ret	nz					; Back to Rom scaning
+	rst	0					; Bios reboot
+
+MainPrgEnd:
+
+; These routines have a fixed size and are placed in the music buffer area of channel.
+; A patched Megarom calls its routines to change memory pages.
+
+BankSel:
+
+Bk5000:							; F975h Bank 0 8KB
+	push	af
+	push	hl
+	if	Offset==0
+	ld	hl,VOICAQ+(RamPrgEnd-BankSel)
+	add	a,(hl)
+	endif
+	ld	(05000h),a
+	pop	hl
+	pop	af
+	ret
+	if	Offset
+	ds	4,0
+	endif
+Bk7000:							; F981h Bank 1 8KB
+	push	af
+	push	hl
+	if	Offset==0
+	ld	hl,VOICAQ+(RamPrgEnd-BankSel)
+	add	a,(hl)
+	endif
+	ld	(07000h),a
+	pop	hl
+	pop	af
+	ret
+	if	Offset
+	ds	4,0
+	endif
+Bk9000:							; F98Dh Bank 2 8KB
+	push	af
+	push	hl
+	if	Offset==0
+	ld	hl,VOICAQ+(RamPrgEnd-BankSel)
+	add	a,(hl)
+	endif
+	ld	(09000h),a
+	pop	hl
+	pop	af
+	ret
+	if	Offset
+	ds	4,0
+	endif
+BkB000:							; F999h Bank 3 8KB
+	push	af
+	push	hl
+	if	Offset==0
+	ld	hl,VOICAQ+(RamPrgEnd-BankSel)
+	add	a,(hl)
+	endif
+	ld	(0B000h),a
+	pop	hl
+	pop	af
+	ret
+	if	Offset
+	ds	4,0
+	endif
+AD6000:							; F9A5h Bank 0 16KB
+	push	af
+	add	a,a
+	if	Offset==0
+	ld	hl,VOICAQ+(RamPrgEnd-BankSel)
+	add	a,(hl)
+	endif
+	ld	(05000h),a
+	inc	a
+	ld	(07000h),a
+	pop	af
+	ret
+	if	Offset
+	ds	4,0
+	endif
+AD7000:							; F9B4h Bank 1 16KB
+	push	af
+	add	a,a
+	if	Offset==0
+	ld	hl,VOICAQ+(RamPrgEnd-BankSel)
+	add	a,(hl)
+	endif
+	ld	(09000h),a
+	inc	a
+	ld	(0B000h),a
+	pop	af
+	ret
+	if	Offset
+	ds	4,0
+	endif
+RamPrgEnd:
+
+Title:
+	include	".\RCM Title.asm"
+; Give your Rom compilation a title. It will be displayed at the top of the screen just above the list of Roms
+; You must respect the number of characters between quotation marks which is 40
+
+	db	"         My games compilation 1         "
+EmptyLine:
+	db	"                                        "
+F1_50Hz:
+	db	"    Push [F1] key to select 50Hz mode   "
+F1_60Hz:
+	db	"    Push [F1] key to select 60Hz mode   "
+
+; RomList format is: ROM segment, MSX generation, "Rom name"
+
+RomList:
+	ds	LineData*6,0
+	include	".\Build\EditThisList.asm"
+; ROM List format is ROM segment, MSX generation (0=MSX1, 1=MSX2, etc), "Rom name" (40 characters)
+;
+; Add 32 to the MSX generation value to run the Rom with a bios boot
+; Add 64 to the MSX generation value if Rom with mirrors
+; Add 128 to the MSX generation value to specify the last Rom from the list
+;  This is a flag to prevent the cursor from exiting the list.
+;  Be careful because the last Rom is not everytime the same. It depends on
+;  The MSX generation used and the MSX generation supported by the ROMs.
+;  Be sure to add 128 to each latest Rom which should be displayed depending on
+;  the generation of the MSX used. (For example, the ROMs for MSX2 are not
+;  displayed on MSX1 computers.
+
+
+	db	  2,   0,   0, "  Antarctic Adventure                   "
+	db	  4,   0,   0, "  Cabbage Patch Kids                    "
+	db	  6,   0,   0, "  Circus Charlie                        "
+	db	  8,   0,   0, "  Comic Bakery                          "
+	db	 10,   0,   0, "  Contra - Gryzor                       "
+	db	 26,   0,   0, "  F1 Spirit The Way to Formula-1        "
+	db	 42,   0,   0, "  Frogger                               "
+	db	 43,   0,   0, "  Gekitotsu Pennant Race 2 (J)          "
+	db	 59,   0,   0, "  Gekitotsu Pennant Race The Pro Yakyuu "
+	db	 75,   0,   0, "  goemon                                "
+	db	 91,   0,   0, "  Gofer no Yabou Episode II - Nemesis 3 "
+	db	123,   0,   0, "  Gradius 2 - Nemesis 2 (E-J)           "
+	db	139,   0,   0, "  gradius                               "
+	db	155,   0,   0, "  Hyper Olympic 1                       "
+	db	157,   0,   0, "  Hyper Olympic 2                       "
+	db	159,   0,   0, "  Hyper Sports 1                        "
+	db	161,   0,   0, "  Hyper Sports 2                        "
+	db	163,   0,   0, "  Hyper Sports 3                        "
+	db	167,   0,   0, "  I Love Sansuu Monta-Kun no Ichi ni San"
+	db	169,   0,   0, "  I Love Shakai Ponpoko Pain - Comic Bak"
+	db	171,   0,   0, "  I Love Taiiku Wanpaku Athletic - Athle"
+	db	173,   0,   0, "  KingKong2                             "
+	db	189,   0,   0, "  Knightmare2                           "
+	db	205,   0,   0, "  Konami no Baseball - Konami's Baseball"
+	db	207,   0,   0, "  Konami no Boxing - Konami's Boxing    "
+	db	211,   0,   0, "  Konami no Golf - Konami's Golf        "
+	db	213,   0,   0, "  Konami no Mahjong Doujou - Konami's Ma"
+	db	217,   0,   0, "  Konami no Ping-Pong - Konami's Ping-Po"
+	db	219,   0,   0, "  Konami no Soccer - Konami's Soccer    "
+	db	223,   0,   0, "  Konami no Tennis - Konami's Tennis    "
+	db	225,   0,   0, "  Konami's Billiards                    "
+	db	226,   0,   0, "  Konami's Football                     "
+	db	230,   0,   0, "  Konami-Hyper Rally                    "
+	db	232,   0,   0, "  Magical Tree                          "
+	db	234,   0,   0, "  Majou Densetsu - Knightmare           "
+	db	238,   0,  32, "  Majutsushi                            "
+	db	254,   0,  32, "  Metal Gear 2 Solid Snake (J)          "
+	db	 62,   1,   0, "  MetalGear                             "
+	db	 78,   1,   0, "  Mopiranger                            "
+	db	 80,   1,   0, "  Ouke no Tani - King's Valley          "
+	db	 82,   1,  32, "  Ouke no Tani El Giza no Fuuin - King's"
+	db	 98,   1,   0, "  Parodius Tako Saves Earth (J)         "
+	db	114,   1,   0, "  penguin                               "
+	db	130,   1,   0, "  Pippols                               "
+	db	132,   1,   0, "  QBert                                 "
+	db	136,   1,   0, "  Quarth                                "
+	db	152,   1,   0, "  Road Fighter                          "
+	db	154,   1,   0, "  Salamander                            "
+	db	170,   1,   0, "  Shalom                                "
+	db	202,   1,  32, "  ShinSeSizer - Konami's Synthesizer    "
+	db	206,   1,   0, "  Sky Jaguar                            "
+	db	208,   1,   0, "  Space Manbow                          "
+	db	240,   1,   0, "  Super Cobra                           "
+	db	241,   1,   0, "  The Goonies                           "
+	db	245,   1,   0, "  Time Pilot                            "
+	db	247,   1,   0, "  Track & Field 1                       "
+	db	249,   1,   0, "  Track & Field 2                       "
+	db	251,   1,   0, "  Twin Bee                              "
+	db	255,   1,   0, "  Usas                                  "
+	db	 15,   2,   0, "  vampire                               "
+	db	 31,   2,   0, "  Video Hustler                         "
+	db	 32,   2,   0, "  Yie Ar Kung-Fu II Yie-Gah Koutei no Gy"
+	db	 36,   2, 128, "  Yie Ar Kung-Fu                        "
+	db	 38,   2, 255, "                                        " ; Do not modify this line 
+	ds	LineData*13,0
+
+EndList:
+	ds	02000h-(EndList-04000h),255
+
+; Empty header on the segment 1 to run the Roms that contains a Basic program
+
+	ds	10h,0
+
+; Fill the rest of segment 1 with 255
+
+	ds	01FF0h,255
+
+
+; +++ segments +++
+
+#CODE          = $4000 = 16384,  size = $4000 = 16384
+
+; +++ global symbols +++
+
+AD6000          = $43CC = 17356          RCM Menu.asm:745 (unused)
+AD7000          = $43DB = 17371          RCM Menu.asm:760 (unused)
+BAKCLR          = $F3EA = 62442          RCM Menu.asm:29
+BASRVN          = $002B =    43          RCM Menu.asm:9
+BDRCLR          = $F3EB = 62443          RCM Menu.asm:30
+BankSel         = $439C = 17308          RCM Menu.asm:687
+Bk5000          = $439C = 17308          RCM Menu.asm:689 (unused)
+Bk7000          = $43A8 = 17320          RCM Menu.asm:703 (unused)
+Bk9000          = $43B4 = 17332          RCM Menu.asm:717 (unused)
+BkB000          = $43C0 = 17344          RCM Menu.asm:731 (unused)
+CONT            = $4196 = 16790          RCM Menu.asm:307 (unused)
+CurrAdr         = $E17B = 57723          RCM Menu.asm:54
+CurrFreq        = $40C5 = 16581          RCM Menu.asm:179
+CurrTopName     = $E171 = 57713          RCM Menu.asm:48
+DCOMPR          = $0020 =    32          RCM Menu.asm:8
+DISSCR          = $0041 =    65          RCM Menu.asm:10 (unused)
+ENASCR          = $0044 =    68          RCM Menu.asm:11 (unused)
+ENASLT          = $0024 =    36          RCM Menu.asm:12
+EXPTBL          = $FCC1 = 64705          RCM Menu.asm:35
+EmptyLine       = $4412 = 17426          RCM Menu.asm:779
+EndList         = $527B = 21115          RCM Menu.asm:793
+ExeByJump       = $438C = 17292          RCM Menu.asm:670
+ExeByRet        = $4395 = 17301          RCM Menu.asm:676
+F1_50Hz         = $443A = 17466          RCM Menu.asm:781
+F1_60Hz         = $4462 = 17506          RCM Menu.asm:783
+FILVRM          = $0056 =    86          RCM Menu.asm:13 (unused)
+FORCLR          = $F3E9 = 62441          RCM Menu.asm:31
+FreqTogglJ      = $4122 = 16674          RCM Menu.asm:236
+FreqToggle      = $4132 = 16690          RCM Menu.asm:247
+GTSTCK          = $00D5 =   213          RCM Menu.asm:16
+GTTRIG          = $00D8 =   216          RCM Menu.asm:17
+H_STKE          = $FEDA = 65242          RCM Menu.asm:41 (unused)
+INIT32          = $006F =   111          RCM Menu.asm:15
+INITXT          = $006C =   108          RCM Menu.asm:14
+LDIRVM          = $005C =    92          RCM Menu.asm:18
+LINL40          = $F3AE = 62382          RCM Menu.asm:32
+LineData        = $002B =    43          RCM Menu.asm:57
+MSXVER          = $002D =    45          RCM Menu.asm:19
+MainLoop        = $40CE = 16590          RCM Menu.asm:185
+MainPrgEnd      = $439C = 17308          RCM Menu.asm:682
+MoveDown        = $4182 = 16770          RCM Menu.asm:293
+MoveUp          = $41A9 = 16809          RCM Menu.asm:321
+NEWKEY          = $FBE5 = 64485          RCM Menu.asm:34
+NextMSXgen      = $408B = 16523          RCM Menu.asm:147
+NextName        = $419E = 16798          RCM Menu.asm:314
+NextSegMum      = $E178 = 57720          RCM Menu.asm:52
+NoScreen1       = $424B = 16971          RCM Menu.asm:437
+NoUPTO8000      = $42F3 = 17139          RCM Menu.asm:551
+Offset          = $0001 =     1          RCM Menu.asm:59
+OffsetReg       = $3800 = 14336          RCM Menu.asm:63
+PlainRom8to16K  = $4281 = 17025          RCM Menu.asm:474 (unused)
+PrevName        = $41B4 = 16820          RCM Menu.asm:330 (unused)
+PrgInRam        = $E010 = 57360          RCM Menu.asm:47
+PrintFreqOpt    = $4156 = 16726          RCM Menu.asm:268
+PrintList       = $41C1 = 16833          RCM Menu.asm:338
+PrintListLP     = $41C6 = 16838          RCM Menu.asm:342
+PrintName       = $4231 = 16945          RCM Menu.asm:418 (unused)
+PrintOK         = $41D9 = 16857          RCM Menu.asm:358
+PrnCond         = $41C9 = 16841          RCM Menu.asm:346
+PutOnpages1_2_3 = $4355 = 17237          RCM Menu.asm:628
+RG9SAV          = $FFE8 = 65512          RCM Menu.asm:36
+RSLREG          = $0138 =   312          RCM Menu.asm:20
+RamBottom       = $E000 = 57344          RCM Menu.asm:46
+RamPrgEnd       = $43EA = 17386          RCM Menu.asm:775
+Rom2page0       = $431D = 17181          RCM Menu.asm:586
+Rom2page1       = $429D = 17053          RCM Menu.asm:496 (unused)
+Rom2page2       = $42F9 = 17145          RCM Menu.asm:559
+Rom2pages1_2    = $42BD = 17085          RCM Menu.asm:519
+Rom2pages1_2_3  = $4341 = 17217          RCM Menu.asm:613
+RomExec         = $4166 = 16742          RCM Menu.asm:278
+RomList         = $448A = 17546          RCM Menu.asm:788
+RomSel          = $423B = 16955          RCM Menu.asm:426
+RomSize         = $E17D = 57725          RCM Menu.asm:55
+RomSlot         = $E17A = 57722          RCM Menu.asm:53
+SegMum          = $E176 = 57718          RCM Menu.asm:51
+SettingBits     = $E175 = 57717          RCM Menu.asm:50
+SkipSegMum      = $41FF = 16895          RCM Menu.asm:386
+Start           = $4010 = 16400          RCM Menu.asm:78
+TXTATR          = $F3B9 = 62393          RCM Menu.asm:33
+Title           = $43EA = 17386          RCM Menu.asm:777
+VDP_DR          = $0006 =     6          RCM Menu.asm:21 (unused)
+VDP_DW          = $0007 =     7          RCM Menu.asm:22 (unused)
+VOICAQ          = $F975 = 63861          RCM Menu.asm:37
+VramPos         = $E173 = 57715          RCM Menu.asm:49
+WRSLT           = $0014 =    20          RCM Menu.asm:23
+WRTVDP          = $0047 =    71          RCM Menu.asm:24
+WRTVRM          = $004D =    77          RCM Menu.asm:25
+WidthName       = $0028 =    40          RCM Menu.asm:56
+_end            = $8000 = 32768          RCM Menu.asm:68 (unused)
+_size           = $4000 = 16384          RCM Menu.asm:68 (unused)
+
+
+total time: 0.0174 sec.
+no errors
