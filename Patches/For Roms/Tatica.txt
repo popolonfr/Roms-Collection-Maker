@@ -1,6 +1,0 @@
-Patch to remove the copy protection from Tatica Rom.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=7914F7A6
-SHA1=7fef9411858b1ff3ff019646e9e7aa0c61c7e87d

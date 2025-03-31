@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Akumajou Dracula - Vampire Killer to SCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=5953D084
-sha1=5ef7d03b138a2023f6def241b671c666f97ed83b

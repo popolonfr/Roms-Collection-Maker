@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Bubble Bobble (fixed & optimized version) to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=C31C6090
-sha1=7e2e61c4c9fcd65340506720defb115eb92406e1

@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Zombie Hunter (J) to SCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=A29E6AB4
-sha1=a322d4e572467be5e1b452214143f88db526b49f

@@ -1,6 +1,0 @@
-Zero and The Castle of Infinite Sadness [48K] is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=7B6F90EF
-SHA1=b61b66e14574b683f75807a6aa18b7868cd628d8

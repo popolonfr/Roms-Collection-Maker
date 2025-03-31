@@ -1,8 +1,0 @@
-Patch to convert the Rom mapper of Super Pierrot to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=F00B4BBC
-crc32=4E63A6AD
-sha1=0d2f86dbb70f4b4a4e4dc1bc95df232f48856037
-sha1=8c4d65ec7e255df5d520abee4b024a4d861d92bb

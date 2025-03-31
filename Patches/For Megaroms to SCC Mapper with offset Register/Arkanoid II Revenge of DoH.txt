@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Arkanoid II Revenge of DoH to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=2E131532
-sha1=452deac5b3341437e70c5b2726aa26cc1d074fba

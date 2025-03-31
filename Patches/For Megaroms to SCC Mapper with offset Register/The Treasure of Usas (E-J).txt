@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of The Treasure of Usas (E-J) to SCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=30396650
-sha1=4ff2aad8371e382e203c7f29b665612a8c9d937c

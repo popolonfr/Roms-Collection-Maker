@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Bubble Bobble (OPL4 enhanced version 1.1) to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=B6CC5094
-sha1=b2d211bf1557b51368a20206faf70ae1a948c9bd

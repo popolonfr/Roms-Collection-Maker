@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Akumajou Dracula / Vampire Killer to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=0AEDEA40
-sha1=5460a88c25386b1b950b57fc1325fd75587cc825

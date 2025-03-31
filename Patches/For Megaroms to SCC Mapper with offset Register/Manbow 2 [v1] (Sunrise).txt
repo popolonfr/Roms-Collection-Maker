@@ -1,6 +1,0 @@
-Patch for Manbow 2 (v1) to use the PSG from the MSX instead of PSG from original cartridge.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=C90474D4
-sha1=c2f8b23052e98c6219dc0fe6ab8a670a281a3620

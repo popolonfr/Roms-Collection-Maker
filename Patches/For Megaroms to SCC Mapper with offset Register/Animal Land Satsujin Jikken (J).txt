@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Animal Land Satsujin Jikken to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=15A0F98A
-sha1=495876c504bdc4de24860ea15b25dda8f3b06c49

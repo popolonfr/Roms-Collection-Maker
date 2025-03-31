@@ -1,6 +1,0 @@
-Flubber In The Upside Downworld (v1.2) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=7B0425F8
-SHA1=3f60883a6a495deef7f2181f6559aa48787b74ee

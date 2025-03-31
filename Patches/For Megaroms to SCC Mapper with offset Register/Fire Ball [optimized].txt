@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Fire Ball (optimized version) to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=59260459
-sha1=6f955a8887230f44258c0f35c878f493c05f7059

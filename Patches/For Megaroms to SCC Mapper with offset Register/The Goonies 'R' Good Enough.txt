@@ -1,6 +1,0 @@
-Patch to remove protection of The Goonies 'R' Good Enough.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=9E939DA4
-sha1=f2592e91c9682570401a0bbcac63464e4221c81b

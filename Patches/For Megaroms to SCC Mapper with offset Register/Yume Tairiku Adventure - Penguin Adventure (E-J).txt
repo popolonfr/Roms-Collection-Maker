@@ -1,6 +1,0 @@
-Patch to convert the Rom mapper of Penguin Adventure / Yume Tairiku Adventure to KonamiSCC mapper.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=0F6418D3
-sha1=d53e0c8bcd98820afe820f756af35cc97911bfe4
