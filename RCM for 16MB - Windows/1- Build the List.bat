@@ -39,7 +39,7 @@ CALL :APPLYPATCH
 SET patch1Dir=".\%patchesDir%\For Roms"
 CALL :APPLYPATCH
 
-IF %bank% GTR 2047 (ECHO ROMs exceeds 2032KB. Can not continue^^! && ECHO. && PAUSE && GOTO :STOP)
+IF %bank% GTR 2047 (ECHO ROMs exceeds 16384KB. Can not continue^^! && ECHO. && PAUSE && GOTO :STOP)
 IF %maxfile% EQU 0 (ECHO File not found^^! && ECHO. && PAUSE && GOTO :STOP)
 IF EXIST "!target!.asm" (DEL !target!.asm)
 
