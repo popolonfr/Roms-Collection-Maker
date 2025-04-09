@@ -8,7 +8,7 @@ Download the [**"Roms-Collection-Maker"**](https://github.com/popolonfr/Roms-Col
 
 ## Copy files and directories
 
-Copy the ROMs (**".ROM"**) to the **".\Roms-Collection-Maker\Roms\"** directory. The total must not exceed 16384KB. Roms and MegaRoms that are not compatible will need to be converted with the corresponding [**IPS patch**](https://www.msx.org/wiki/How_to_use_IPS_files)  found (if it exists) in the **".\Patches\"** directory.
+Copy the ROMs (**".ROM"**) to the **".\Roms-Collection-Maker\Roms\"** directory. The total must not exceed 16384KB. Roms and MegaRoms that are not compatible will need to be converted with the corresponding [**IPS patch**](https://www.msx.org/wiki/How_to_use_IPS_files)  found (if it exists) in the **".\Patches\"** directory. Each patch has an associated text file containing information such as the checksum and the real name of the ROM that can be patched. When generating the ROM list, patches will be searched for and automatically applied to the corresponding ROM.
 
 ## Create and edit ROM list
 
