@@ -14,7 +14,7 @@ Copy the ROMs (**".ROM"**) to the **".\Roms-Collection-Maker\Roms\"** directory.
 
 Run **".\1- Build the List.bat"**. This action will create the list of ROMs and save it in the **".\Build\EditThisList.asm"** file. Edit the list and change the filenames that are in quotes in the third column to how you want them to appear in the menu without changing the number of characters which should remain at 40 for each name. 
 
-In the second column specify the generation of MSX from which the ROM is compatible. 0 for MSX1, 1 for MSX2, 2 for MSX2+, 3 for Turbo-R. By indicating 1 (ROM MSX2), the name of the ROM will not be displayed in the list on the MSX1 computers. For a correct display, it is necessary to indicate the last ROM of each generation by adding 128 to its value. Add 64 to indicate that the ROM is using reflections of its memory. Add 32 to make the ROM run with a BIOS reset.
+The first and second columns indicate the number of the first memory page where the ROM is stored. These page numbers are automatically calculated when generating the ROM list. In the third column specify the generation of MSX from which the ROM is compatible. 0 for MSX1, 1 for MSX2, 2 for MSX2+, 3 for Turbo-R. By indicating 1 (ROM MSX2), the name of the ROM will not be displayed in the list on the MSX1 computers. For a correct display, it is necessary to indicate the last ROM of each generation by adding 128 to its value. Add 32 to make the ROM run with a BIOS reset.
 
 ## Create the final ROM
 
