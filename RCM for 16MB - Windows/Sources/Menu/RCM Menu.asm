@@ -1,5 +1,5 @@
 
-; Multi-ROM Menu v1.1 for SCC mapper by Popolon-fr
+; Multi-ROM Menu v1.2 for SCC mapper by Popolon-fr
 ;
 ; Thanks to GDX for their contribution
 
