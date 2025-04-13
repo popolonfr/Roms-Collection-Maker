@@ -26,5 +26,7 @@ At this step if **".\Build\EditThisList.asm"** does not exist it will be created
 
 ROMs such as King Valley 2, Metal Gear 2, Pennant 2 use floppy disks for backups. If when running the ROM the message [**"No enough memory"**](https://www.msx.org/wiki/No_enough_memory) occurs, it is probably that an additional disk or card reader (Sunrise, Carnivor or others) is present. Disable it and run the ROM again.
 
+Currently, the tool is not digitally signed, so Windows will prevent it from running and display a warning message with two choices: "deny" or "more details." Choose "more details" if you want to run it anyway, and make sure you only download the tool from Github.com.
+
 &copy; 2025 popolon-fr
 
