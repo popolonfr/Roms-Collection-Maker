@@ -8,7 +8,7 @@ REM 0: Keeps the ROM file name
 REM 1: Changes the file name to the one found in the database
 REM 2: Same as above, but takes the second name
 
-SET /A "nameSelectionMode=0"
+SET /A "nameSelectionMode=2"
 
 REM ---------------------------------------------------------
 
