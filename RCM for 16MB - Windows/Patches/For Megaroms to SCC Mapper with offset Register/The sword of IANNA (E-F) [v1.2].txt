@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of The sword of IANNA (E-F) [v1.2] to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=6DDDEB62
+sha1=1463f1e0216ad9f944bb1da748a01034da445cef
