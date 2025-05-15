@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Famicle Parodic (J) to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=0E03847B
+sha1=f12ad34dc3b4279da0fc7094f3d50d6b8bb517dc
