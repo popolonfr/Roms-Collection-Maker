@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of No Back Down to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=A78FDB26
+sha1=d47e20d83063cd6bbda8566177a53baff358e5f5
