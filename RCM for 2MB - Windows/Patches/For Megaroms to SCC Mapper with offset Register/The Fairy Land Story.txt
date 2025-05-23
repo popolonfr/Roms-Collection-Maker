@@ -1,0 +1,9 @@
+Patch to convert the Rom mapper of The Fairy Land Story or The Fairy Land Story [a] to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=26E34F05
+sha1=e11afc03db4e1d03976d02796b29da9c65d4ff3d
+
+crc32=C032376B
+sha1=2bb837a9051277ba574d8351a9f91f9e57033074

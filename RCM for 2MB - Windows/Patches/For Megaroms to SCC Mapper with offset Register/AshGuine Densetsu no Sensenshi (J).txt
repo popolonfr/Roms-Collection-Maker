@@ -1,0 +1,8 @@
+Patch to convert the Rom mapper of AshGuine Densetsu no Sensenshi (J) to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=3CB34EFB
+crc32=3D477E08
+sha1=F57B46154CF0711E3F5218E00F67C375D95D1D5D
+sha1=A8EEAC428A5992A2390B1827DB1358F4C733E200

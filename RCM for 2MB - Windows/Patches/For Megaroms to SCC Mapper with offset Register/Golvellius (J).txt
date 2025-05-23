@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Golvellius (J) to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=5EAC55DF
+sha1=7A4126934F9E68C34BF00DD3D9A9E753C05EE73F

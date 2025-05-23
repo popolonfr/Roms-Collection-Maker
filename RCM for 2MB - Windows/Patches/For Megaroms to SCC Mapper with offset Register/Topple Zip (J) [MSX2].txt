@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Topple Zip (J) for MSX2 to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=96B33497
+sha1=E3036A7BC6ED3ECE1C85D5E37FB2FF39BA98BA47

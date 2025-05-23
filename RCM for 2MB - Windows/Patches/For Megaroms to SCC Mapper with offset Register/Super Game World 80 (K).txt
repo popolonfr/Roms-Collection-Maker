@@ -1,0 +1,10 @@
+Patch to convert the Rom mapper of Super Game World 80 (K) or Super Game World 80 (K) [ASCII8 mapper] to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=D9AA0055
+sha1=a4a75ed32c2af3c5f009661bb76be4f65e2e9a1f
+
+crc32=EE0FFFA2
+sha1=30b41d0e9b3c59e8826112c618206e12e187fb5d
+
