@@ -1,0 +1,7 @@
+Patch to convert the Rom mapper of Dragon Slayer IV Drasle Family [MSX1] (J) to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+
+crc32=87DCD309
+sha1=f100a76117e95ab0335e89a901e47d844bbc0ab6

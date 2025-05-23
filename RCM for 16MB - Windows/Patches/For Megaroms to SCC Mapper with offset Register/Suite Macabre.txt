@@ -1,0 +1,8 @@
+Patch to convert the Rom mapper of Suite Macabre to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=B6D48897
+crc32=FFCA72A6
+sha1=26ADDBDBEE04AFAE123142B35E46C52A33C63113
+sha1=14D0574D5F8DE458CBDC5D406D1C4F39B9F543A0

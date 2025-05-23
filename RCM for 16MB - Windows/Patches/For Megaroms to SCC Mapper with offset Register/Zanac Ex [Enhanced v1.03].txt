@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Enhanced Zanac Ex v1.03 to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=768589A8
+sha1=E16F0A8F9D6BA826BF97E7ED36BEBCA8D60D84B9

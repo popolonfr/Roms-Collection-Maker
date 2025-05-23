@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Mitsume Ga Tooru - The Three-Eyed One Comes Here (J) to KonamiSCC mapper.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=4FACCAE0
+sha1=176EC8E65A9FDBF59EDC245B9E8388CC94195DB9
