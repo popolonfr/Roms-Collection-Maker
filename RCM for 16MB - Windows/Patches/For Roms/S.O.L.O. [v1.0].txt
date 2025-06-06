@@ -1,0 +1,8 @@
+S.O.L.O. (v1.0) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=B06ABC90
+crc32=3B426A04
+SHA1=efadd1e32314dd4f548fb4b6dbf7ef618b6e9322
+SHA1=43f0611853fc40b5674ad775be9eeb4068664e0b

@@ -1,0 +1,6 @@
+Patch to convert the Rom mapper of Konami's Synthesizer to KonamiSCC mapper and it activates the DAC of the Popolon-fr 16MB SCC Cartridge Flash-ROM.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=B9B0999A
+sha1=2feff37d593683ce1c7dfac33ed3207895e01a03

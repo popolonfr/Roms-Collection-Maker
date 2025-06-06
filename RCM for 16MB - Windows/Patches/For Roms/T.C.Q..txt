@@ -1,0 +1,8 @@
+T.C.Q. is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
+
+Use the ROM with a checksum from those listed below to apply this patch.
+
+crc32=977B28BC
+crc32=BEB5B313
+SHA1=9ab8bf71ecd890df31e5f22faacd1a651bdb2335
+SHA1=2bb56ae62d1b2e84bf6f5c9e407185ef3f5e6402
