@@ -1,6 +1,0 @@
-Pentacorn Quest (v1.1) is a 48kB plain ROM. This patch modifies the Rom to be executable from the Popolon's flash Rom SCC cartridge in multi-Rom mode.
-
-Use the ROM with a checksum from those listed below to apply this patch.
-
-crc32=883C5ABE
-SHA1=4e00f654c0c5ebbd8c4bec4adc9be0ba54555d3f
