@@ -18,7 +18,7 @@ The first and second columns indicate the number of the first memory page where 
 
 ## Create the final ROM
 
-Run **"2- Build the Rom.bat"** to create the final ROM **".\Build\LoadThis.rom"**. to load it on the SCC Cartridge Flash-ROM, use [**FL.COM**](https://github.com/gdx-msx/FL/tree/master/FL-V133) from version 1.33.
+Run **"2- Build the Rom.bat"** to create the final ROM **".\Build\LoadThis.rom"**. to load it on the SCC Cartridge Flash-ROM, use [**FLX.COM**](https://github.com/popolonfr/FLX).
 
 At this step if **".\Build\EditThisList.asm"** does not exist it will be created automatically before finalizing the ROM. Subsequently, it will always be possible to modify the list and start this step again.
 
